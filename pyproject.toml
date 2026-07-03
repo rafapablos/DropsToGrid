@@ -1,0 +1,28 @@
+[project]
+name = "dtg"
+version = "1.0.0"
+description = "From Drops to Grid: Noise-Aware Spatio-Temporal Neural Process for Rainfall Estimation"
+readme = "README.md"
+license = "CC-BY-NC-4.0"
+requires-python = ">=3.12"
+dependencies = [
+    "clearml>=1.18.0",
+    "einops>=0.8.1",
+    "jsonargparse[signatures]>=4.39.0",
+    "lightning==2.5.1.post0",
+    "matplotlib>=3.10.3",
+    "moviepy<2",
+    "numpy<2.3",
+    "torch==2.6.0",
+    "torchvision==0.21.0",
+    "check-shapes>=1.1.1",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dtg*"]

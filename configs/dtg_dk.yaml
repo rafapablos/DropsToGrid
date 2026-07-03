@@ -1,0 +1,47 @@
+# lightning.pytorch==2.5.1.post0
+seed_everything: 1337
+trainer:
+  devices: [0]
+  precision: 'bf16-mixed'
+  max_epochs: 200
+  limit_train_batches: 2000
+  limit_val_batches: 500
+  deterministic: True
+  project: DropsToGrid
+  log_every_n_steps: 50
+  gradient_clip_val: 0.5
+  ema_decay: 0.999
+  ema_delay: 2000
+  logger: clearml
+model:
+  class_path: dtg.modules.dtg.dtg.DtGModule
+  init_args:
+    network:
+      class_path: dtg.networks.dtg.model.DtGModelConfig
+      init_args:
+        num_blocks: 5
+        kernel_size: 3
+        num_channels: 32
+        p_dropout: 0.1
+        num_heads: 8
+        head_dim: 8
+        depth: 2
+    learning_rate: 3e-4
+    weight_decay: 1e-4
+    input_source: wumap_4km
+    target_source: wumap_4km
+    context_masking: [0.3, 0.5]
+    random_region_mask: true
+    num_lead_times: 0
+    num_history_times: 3
+data:
+  sources:
+   - rainviewer_4km
+   - wumap_4km
+   - rainviewer_mask_4km
+   - climate_mask_4km
+  batch_size: 16
+  eval_batch_size: 16
+  num_workers: 24
+find_lr: False
+compile: False
